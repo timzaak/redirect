@@ -1,0 +1,11 @@
+[package]
+name = "redirect"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+salvo = {version = "0.84.2", features = ["proxy", "test", "anyhow"]}
+tokio = { version = "1", features = ["macros"] }
+anyhow = "1"
+tracing = { version = "0.1" }
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
