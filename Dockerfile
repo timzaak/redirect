@@ -14,12 +14,17 @@ COPY Cargo.toml Cargo.lock ./
 # Cargo will see the manifests and try to compile a minimal binary,
 # which forces it to download and compile all dependencies in /target.
 RUN mkdir src
+RUN echo "fn main() { println!(\"dummy\"); }" > src/main.rs
+
+# Run a build. This step compiles dependencies.
+# This layer will only be invalidated if Cargo.toml/Cargo.lock changes.
+RUN cargo build --release
 
 # Copy source code
-COPY src ./src
-
+COPY src/ ./src
 # Build the application
 RUN cargo build --release
+
 
 # Runtime stage
 FROM debian:bookworm-slim
